@@ -1,0 +1,161 @@
+Algoritmo MenuMaquillaje
+	// Declaración de variables
+	Definir lista_maquillaje Como Cadena
+	Definir opcion1 Como Entero
+	Definir producto Como Cadena
+	Definir nueva_lista Como Cadena
+	Definir contador, posicion, inicio, coma_posicion Como Entero
+	Definir elemento Como Cadena
+	lista_maquillaje <- ''
+	opcion1 <- 0
+	Mientras opcion1<>5 Hacer
+		Escribir 'ALEXA Y DULCE'
+		Escribir 'Menú de Opciones - Gestión de Productos de Maquillaje'
+		Escribir '1) Agregar un Producto'
+		Escribir '2) Consultar Productos'
+		Escribir '3) Modificar un Producto'
+		Escribir '4) Eliminar un Producto'
+		Escribir '5) Salir'
+		Leer opcion1
+		Según opcion1 Hacer
+			1:
+				Escribir 'Ingrese los datos del producto:'
+				Escribir 'Nombre:'
+				Leer nombre
+				Escribir 'Marca:'
+				Leer marca
+				Escribir 'Tipo (ejemplo: base, sombra, labial):'
+				Leer tipo
+				Escribir 'Tonalidad:'
+				Leer tonalidad
+				Escribir 'Tamaño (ml o g):'
+				Leer tamanio
+				Escribir 'Precio:'
+				Leer precio
+				Escribir 'Stock disponible:'
+				Leer stock
+				producto <- nombre+'|'+marca+'|'+tipo+'|'+tonalidad+'|'+tamanio+'|'+precio+'|'+stock
+				Si lista_maquillaje='' Entonces
+					lista_maquillaje <- producto
+				SiNo
+					lista_maquillaje <- lista_maquillaje+','+producto
+				FinSi
+				Escribir 'Producto agregado con éxito.'
+			2:
+				Si lista_maquillaje='' Entonces
+					Escribir 'No hay productos registrados.'
+				SiNo
+					Escribir 'Listado de Productos:'
+					contador <- 1
+					inicio <- 1
+					coma_posicion <- 1
+					Mientras coma_posicion>0 Hacer
+						coma_posicion <- -1
+						Para i<-inicio Hasta Longitud(lista_maquillaje) Hacer
+							Si Subcadena(lista_maquillaje,i,i)=',' Y coma_posicion=-1 Entonces
+								coma_posicion <- i
+							FinSi
+						FinPara
+						Si coma_posicion>0 Entonces
+							elemento <- Subcadena(lista_maquillaje,inicio,coma_posicion-1)
+							inicio <- coma_posicion+1
+						SiNo
+							elemento <- Subcadena(lista_maquillaje,inicio,Longitud(lista_maquillaje))
+						FinSi
+						Escribir contador, ') ', elemento
+						contador <- contador+1
+					FinMientras
+				FinSi
+			3:
+				Si lista_maquillaje='' Entonces
+					Escribir 'No hay productos registrados.'
+				SiNo
+					Escribir 'Ingrese el número del producto que desea modificar:'
+					Leer posicion
+					nueva_lista <- ''
+					contador <- 1
+					inicio <- 1
+					coma_posicion <- 1
+					Mientras coma_posicion>0 Hacer
+						coma_posicion <- -1
+						Para i<-inicio Hasta Longitud(lista_maquillaje) Hacer
+							Si Subcadena(lista_maquillaje,i,i)=',' Y coma_posicion=-1 Entonces
+								coma_posicion <- i
+							FinSi
+						FinPara
+						Si coma_posicion>0 Entonces
+							elemento <- Subcadena(lista_maquillaje,inicio,coma_posicion-1)
+							inicio <- coma_posicion+1
+						SiNo
+							elemento <- Subcadena(lista_maquillaje,inicio,Longitud(lista_maquillaje))
+						FinSi
+						Si contador=posicion Entonces
+							Escribir 'Ingrese los nuevos datos del producto:'
+							Escribir 'Nombre:'
+							Leer nombre
+							Escribir 'Marca:'
+							Leer marca
+							Escribir 'Tipo (ejemplo: base, sombra, labial):'
+							Leer tipo
+							Escribir 'Tonalidad:'
+							Leer tonalidad
+							Escribir 'Tamaño (ml o g):'
+							Leer tamanio
+							Escribir 'Precio:'
+							Leer precio
+							Escribir 'Stock disponible:'
+							Leer stock
+							elemento <- nombre+'|'+marca+'|'+tipo+'|'+tonalidad+'|'+tamanio+'|'+precio+'|'+stock
+						FinSi
+						Si nueva_lista='' Entonces
+							nueva_lista <- elemento
+						SiNo
+							nueva_lista <- nueva_lista+','+elemento
+						FinSi
+						contador <- contador+1
+					FinMientras
+					lista_maquillaje <- nueva_lista
+					Escribir 'Producto modificado con éxito.'
+				FinSi
+			4:
+				Si lista_maquillaje='' Entonces
+					Escribir 'No hay productos registrados.'
+				SiNo
+					Escribir 'Ingrese el número del producto que desea eliminar:'
+					Leer posicion
+					nueva_lista <- ''
+					contador <- 1
+					inicio <- 1
+					coma_posicion <- 1
+					Mientras coma_posicion>0 Hacer
+						coma_posicion <- -1
+						Para i<-inicio Hasta Longitud(lista_maquillaje) Hacer
+							Si Subcadena(lista_maquillaje,i,i)=',' Y coma_posicion=-1 Entonces
+								coma_posicion <- i
+							FinSi
+						FinPara
+						Si coma_posicion>0 Entonces
+							elemento <- Subcadena(lista_maquillaje,inicio,coma_posicion-1)
+							inicio <- coma_posicion+1
+						SiNo
+							elemento <- Subcadena(lista_maquillaje,inicio,Longitud(lista_maquillaje))
+						FinSi
+						Si contador<>posicion Entonces
+							Si nueva_lista='' Entonces
+								nueva_lista <- elemento
+							SiNo
+								nueva_lista <- nueva_lista+','+elemento
+							FinSi
+						FinSi
+						contador <- contador+1
+					FinMientras
+					lista_maquillaje <- nueva_lista
+					Escribir 'Producto eliminado con éxito.'
+				FinSi
+			5:
+				Escribir 'Saliendo del programa. ¡Adiós!'
+			De Otro Modo:
+				Escribir 'Opción no válida. Intente de nuevo.'
+		FinSegún
+	FinMientras
+FinAlgoritmo
